@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #00979C;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00979C, #008184);
+            clip-path: circle(40% at right 70%);
+            animation: gradientMove 8s infinite alternate;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 151, 156, 0.9);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: clamp(1.5em, 4vw, 2em);
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 3vw, 30px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: clamp(60px, 10vh, 100px);
+        }
+
+        .text-content {
+            flex: 1 1 300px;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: clamp(2em, 5vw, 3.5em);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 1s forwards;
+        }
+
+        p {
+            font-size: clamp(1em, 2vw, 1.2em);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 1s 0.3s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 30px);
+            background: #E47128;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.6s forwards;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        .cta-button:hover {
+            background: #ff8f4c;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .robot-container {
+            flex: 1 1 300px;
+            position: relative;
+            height: clamp(250px, 50vh, 400px);
+            perspective: 1000px;
+        }
+
+        .robot {
+            width: min(100%, 300px);
+            height: min(100%, 300px);
+            background: url('/api/placeholder/300/300') center/cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 3s infinite ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientMove {
+            0% {
+                clip-path: circle(40% at right 70%);
+            }
+            100% {
+                clip-path: circle(40% at left 30%);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                z-index: 102;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                max-width: 300px;
+                background: rgba(0, 151, 156, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s;
+                backdrop-filter: blur(10px);
+                z-index: 101;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .content {
+                text-align: center;
+                margin-top: 80px;
+            }
+
+            .text-content {
+                padding-right: 0;
+            }
+
+            .robot-container {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 10px;
+            }
+
+            .robot-container {
+                height: 200px;
+            }
+        }
+
+        /* Soporte para modo oscuro */
+        @media (prefers-color-scheme: dark) {
+            .nav {
+                background: rgba(0, 121, 126, 0.95);
+            }
+        }
+
+        /* Soporte para preferencias de movimiento reducido */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-svg {
+            width: clamp(35px, 5vw, 45px);
+            height: auto;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .logo-text {
+            font-size: clamp(1.5em, 4vw, 2em);
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Animación para el logo */
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 5px rgba(255,255,255,0.7));
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(255,255,255,0.9));
+            }
+        }
+
+        .logo-container:hover .logo-svg {
+            animation: glow 2s infinite;
+        }
+
+        .logo-container:hover .logo-text {
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        /* Ajustes responsivos específicos para el logo */
+        @media (max-width: 480px) {
+            .logo-container {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Círculo base -->
+                <circle cx="50" cy="50" r="45" fill="#00979C"/>
+                <!-- Engranaje exterior -->
+                <path d="M50 5
+                    A45 45 0 0 1 95 50
+                    A45 45 0 0 1 50 95
+                    A45 45 0 0 1 5 50
+                    A45 45 0 0 1 50 5
+                    M50 15
+                    A35 35 0 0 0 15 50
+                    A35 35 0 0 0 50 85
+                    A35 35 0 0 0 85 50
+                    A35 35 0 0 0 50 15
+                    Z" 
+                    fill="#E47128"/>
+                <!-- Detalles del robot -->
+                <circle cx="35" cy="40" r="8" fill="white"/>
+                <circle cx="65" cy="40" r="8" fill="white"/>
+                <circle cx="35" cy="40" r="4" fill="#00979C"/>
+                <circle cx="65" cy="40" r="4" fill="#00979C"/>
+                <!-- Sonrisa -->
+                <path d="M30 60 Q50 75 70 60" 
+                    fill="none" 
+                    stroke="white" 
+                    stroke-width="4" 
+                    stroke-linecap="round"/>
+                <!-- Antenas -->
+                <line x1="30" y1="20" x2="40" y2="30" 
+                    stroke="white" 
+                    stroke-width="3" 
+                    stroke-linecap="round"/>
+                <line x1="70" y1="20" x2="60" y2="30" 
+                    stroke="white" 
+                    stroke-width="3" 
+                    stroke-linecap="round"/>
+            </svg>
+            <span class="logo-text">RoboTech</span>
+        </div>
+        <!-- ... (Resto del código del nav) ... -->
+    </nav>
+    <!-- ... (Resto del código HTML) ... -->
+    <nav class="nav">
+        <div class="logo">RoboTech</div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#productos">Productos</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <div class="content">
+                <div class="text-content">
+                    <h1>Innovación en Robótica</h1>
+                    <p>Descubre nuestra línea de productos Arduino y componentes electrónicos para dar vida a tus proyectos. Desde principiantes hasta expertos, tenemos todo lo que necesitas para crear el futuro.</p>
+                    <a href="#productos" class="cta-button">Ver Productos</a>
+                </div>
+                <div class="robot-container">
+                    <div class="robot"></div>
+                </div>
+            </div>
+        </div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <script>
+        // Menú móvil
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Partículas
+        class Particle {
+            constructor() {
+                this.reset();
+                this.size = Math.random() * 3 + 1;
+            }
+
+            reset() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > window.innerWidth || this.x < 0 || 
+                    this.y > window.innerHeight || this.y < 0) {
+                    this.reset();
+                }
+            }
+
+            draw(ctx) {
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.querySelector('.particles').appendChild(canvas);
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            particles.forEach(particle => particle.reset());
+        });
+
+        resizeCanvas();
+
+        const particles = Array.from({ length: 50 }, () => new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw(ctx);
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Efecto parallax optimizado
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+
+        function handleParallax(scrollPos) {
+            const robot = document.querySelector('.robot');
+            const movement = scrollPos * 0.1;
+            robot.style.transform = `translate(-50%, -${50 + movement}%)`;
+        }
+
+        document.addEventListener('scroll', () => {
+            lastKnownScrollPosition = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleParallax(lastKnownScrollPosition);
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        });
+
+        // Efecto de movimiento suave al hacer clic en los enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Animación adicional para el logo al hacer scroll
+        window.addEventListener('scroll', () => {
+            const logo = document.querySelector('.logo-container');
+            if (window.scrollY > 50) {
+                logo.style.transform = 'scale(0.9)';
+            } else {
+                logo.style.transform = 'scale(1)';
+            }
+        });
+    </script>
+</body>
+</html>

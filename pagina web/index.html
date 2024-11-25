@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilo.css">
+    <title>Arduino Robotics Hub</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="top-nav">
+                <div class="logo">Arduino Robotics Hub</div>
+                <div class="user-actions">
+                    <a href="#">Iniciar Sesión</a>
+                    <a href="#">Registrarse</a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="#">Inicio</a>
+                    <a href="#">Proyectos</a>
+                    <a href="#">Tutoriales</a>
+                    <a href="#">Componentes</a>
+                    <a href="#">Foro</a>
+                    <a href="#">Cursos</a>
+                    <a href="#">Documentación</a>
+                    <a href="#">Tienda</a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="text-content">
+                <h1>
+                    <span class="orange-text">CREA Y APRENDE</span><br>
+                    <span class="blue-text">Robótica con<br>Arduino</span>
+                </h1>
+                <p>
+                    Descubre el fascinante mundo de la robótica con Arduino. Desde principiantes hasta expertos, 
+                    encuentra proyectos emocionantes, tutoriales paso a paso y una comunidad apasionada lista 
+                    para ayudarte en tu viaje de creación tecnológica.
+                </p>
+                <div class="cta-buttons">
+                    <button class="cta-button">Comenzar Ahora →</button>
+                    <button class="cta-button secondary">Ver Proyectos</button>
+                </div>
+            </div>
+
+            <div class="robot-illustration">
+                <div class="robot-card">
+                    <div class="robot-inner">
+                        <div class="robot-head">
+                            <div class="robot-eye"></div>
+                            <div class="robot-eye"></div>
+                        </div>
+                        <div class="robot-grid">
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                            <div class="robot-grid-item"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Proyectos Guiados</h3>
+                <p>Aprende con proyectos paso a paso, desde robots seguidores de línea hasta brazos robóticos controlados por Arduino.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Biblioteca de Sensores</h3>
+                <p>Explora nuestra extensa biblioteca de sensores y actuadores compatibles con Arduino para tus proyectos de robótica.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Comunidad Activa</h3>
+                <p>Únete a una comunidad vibrante de entusiastas de la robótica. Comparte, aprende y colabora en proyectos emocionantes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!--este es el apartado de la bienvenida-->
+     <!-- Primera Sección (Texto a la derecha, Imagen a la izquierda) -->
+     <div class="robotics-section-1">
+        <div class="robotics-section-container-1">
+            <div class="robotics-section-content-1">
+                <span class="robotics-section-badge-1">Innovación en Robótica</span>
+                <h2 class="robotics-section-title-1">Descubre el Futuro de la Robótica</h2>
+                <p class="robotics-section-description-1">Sumérgete en el mundo de la robótica avanzada con nuestra plataforma de aprendizaje integral.</p>
+                <a href="#" class="robotics-section-button-1">Explorar Tecnologías</a>
+                <div class="robotics-tech-stack-1">
+                    <div class="robotics-tech-item-1">
+                        <span class="robotics-tech-icon-1">A</span>
+                        Arduino
+                    </div>
+                    <div class="robotics-tech-item-1">
+                        <span class="robotics-tech-icon-1">R</span>
+                        ROS
+                    </div>
+                    <div class="robotics-tech-item-1">
+                        <span class="robotics-tech-icon-1">P</span>
+                        Python
+                    </div>
+                </div>
+            </div>
+            <div class="robotics-section-image-1">
+                <img src="https://via.placeholder.com/600x400" alt="Robótica Avanzada">
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda Sección (Texto a la izquierda, Imagen a la derecha) -->
+    <div class="robotics-section-2">
+        <div class="robotics-section-container-2">
+            <div class="robotics-section-image-2">
+                <img src="https://via.placeholder.com/600x400" alt="Automatización Industrial">
+            </div>
+            <div class="robotics-section-content-2">
+                <span class="robotics-section-badge-2">Automatización Industrial</span>
+                <h2 class="robotics-section-title-2">Transforma tu Industria con Robótica</h2>
+                <p class="robotics-section-description-2">Optimiza procesos industriales con nuestras soluciones automatizadas de robótica.</p>
+                <a href="#" class="robotics-section-button-2">Ver Proyectos</a>
+                <div class="robotics-tech-stack-2">
+                    <div class="robotics-tech-item-2">
+                        <span class="robotics-tech-icon-2">M</span>
+                        MATLAB
+                    </div>
+                    <div class="robotics-tech-item-2">
+                        <span class="robotics-tech-icon-2">C</span>
+                        C++
+                    </div>
+                    <div class="robotics-tech-item-2">
+                        <span class="robotics-tech-icon-2">I</span>
+                        IoT
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tercera Sección (Texto a la derecha, Imagen a la izquierda) -->
+    <div class="robotics-section-3">
+        <div class="robotics-section-container-3">
+            <div class="robotics-section-content-3">
+                <span class="robotics-section-badge-3">Educación Robótica</span>
+                <h2 class="robotics-section-title-3">Aprende Robótica desde Cero</h2>
+                <p class="robotics-section-description-3">Ofrecemos cursos para todos los niveles, desde principiantes hasta expertos.</p>
+                <a href="#" class="robotics-section-button-3">Ver Cursos</a>
+                <div class="robotics-tech-stack-3">
+                    <div class="robotics-tech-item-3">
+                        <span class="robotics-tech-icon-3">B</span>
+                        Blockly
+                    </div>
+                    <div class="robotics-tech-item-3">
+                        <span class="robotics-tech-icon-3">L</span>
+                        Linux
+                    </div>
+                    <div class="robotics-tech-item-3">
+                        <span class="robotics-tech-icon-3">S</span>
+                        Scratch
+                    </div>
+                </div>
+            </div>
+            <div class="robotics-section-image-3">
+                <img src="https://via.placeholder.com/600x400" alt="Educación Robótica">
+            </div>
+        </div>
+    </div>
+
+<!--footer-->
+<footer class="footer-unique">
+  <div class="footer-content">
+    <div class="arduino-avatar">
+      <div class="arduino-logo">
+        <div class="arduino-eye left"></div>
+        <div class="arduino-eye right"></div>
+        <div class="arduino-mouth"></div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Arduino Projects</h3>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-rocket"></i>Getting Started</a></li>
+        <li><a href="#"><i class="fas fa-book"></i>Tutorials</a></li>
+        <li><a href="#"><i class="fas fa-file-code"></i>Documentation</a></li>
+        <li><a href="#"><i class="fas fa-users"></i>Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Resources</h3>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-download"></i>Downloads</a></li>
+        <li><a href="#"><i class="fas fa-tools"></i>Tools</a></li>
+        <li><a href="#"><i class="fas fa-shield-alt"></i>Security</a></li>
+        <li><a href="#"><i class="fas fa-question-circle"></i>FAQ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Connect</h3>
+      <div class="social-icons">
+        <a href="#" class="social-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+
+      <div class="subscribe-form">
+        <h4 style="margin-top: 0;">Subscribe to Newsletter</h4>
+        <input type="email" placeholder="Enter your email" />
+        <button class="subscribe-button">
+          <i class="far fa-envelope"></i> Subscribe
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2024 Arduino. All rights reserved.</p>
+    <div style="margin-top: 0.5rem;">
+      <a href="#" style="color: var(--arduino-teal); margin: 0 10px;">Privacy Policy</a>
+      <a href="#" style="color: var(--arduino-teal); margin: 0 10px;">Terms of Service</a>
+      <a href="#" style="color: var(--arduino-teal); margin: 0 10px;">Contact Us</a>
+    </div>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="/movie.js"></script>
+</body>
+</html>

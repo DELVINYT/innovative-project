@@ -1,0 +1,561 @@
+Updated Robotics Course Page
+Preview
+Code
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Robótica | Cursos Especializados</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --arduino-teal: #00979C;
+            --arduino-blue: #0C3B44;
+            --arduino-light: #62AEB2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--arduino-blue), var(--arduino-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stats-banner {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-around;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .circuit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/1080') center/cover;
+            opacity: 0.1;
+        }
+
+        .courses-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .course-stat {
+            text-align: center;
+        }
+
+        .course-stat-number {
+            color: var(--arduino-teal);
+            font-weight: bold;
+        }
+
+        .course-title {
+            color: var(--arduino-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .course-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--arduino-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .course-link:hover {
+            background-color: var(--arduino-blue);
+        }
+
+        .level-indicator {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-beginner { background-color: #4CAF50; }
+        .level-intermediate { background-color: #FFA000; }
+        .level-advanced { background-color: #F44336; }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--arduino-teal);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="circuit-overlay"></div>
+        <div class="hero-content">
+            <h1>Academia de Robótica</h1>
+            <p>Formación especializada en robótica y programación</p>
+            <div class="stats-banner">
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Estudiantes Graduados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfacción</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Tasa de Empleo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="courses-container">
+        <div class="course-card">
+            <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+            <div class="course-content">
+                <span class="level-indicator level-beginner">Nivel: Principiante</span>
+                <h3 class="course-title">Introducción a Arduino</h3>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">12K+</div>
+                        <div>Estudiantes</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.8/5</div>
+                        <div>Valoración</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">40h</div>
+                        <div>Duración</div>
+                    </div>
+                </div>
+                <p class="course-description">Aprende los fundamentos de la programación con Arduino y crea tus primeros proyectos.</p>
+                <a href="#" class="course-link" data-course="arduino">Ver Curso</a>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+            <div class="course-content">
+                <span class="level-indicator level-advanced">Nivel: Avanzado</span>
+                <h3 class="course-title">Robótica Avanzada</h3>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">8K+</div>
+                        <div>Estudiantes</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.9/5</div>
+                        <div>Valoración</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">60h</div>
+                        <div>Duración</div>
+                    </div>
+                </div>
+                <p class="course-description">Desarrolla robots complejos y aprende sobre sensores y actuadores avanzados.</p>
+                <a href="#" class="course-link" data-course="advanced">Ver Curso</a>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="course-image" style="background-image: url('/api/placeholder/400/200')"></div>
+            <div class="course-content">
+                <span class="level-indicator level-intermediate">Nivel: Intermedio</span>
+                <h3 class="course-title">IoT con Arduino</h3>
+                <div class="course-stats">
+                    <div class="course-stat">
+                        <div class="course-stat-number">10K+</div>
+                        <div>Estudiantes</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">4.7/5</div>
+                        <div>Valoración</div>
+                    </div>
+                    <div class="course-stat">
+                        <div class="course-stat-number">50h</div>
+                        <div>Duración</div>
+                    </div>
+                </div>
+                <p class="course-description">Conecta tus proyectos a Internet y créa dispositivos IoT innovadores.</p>
+                <a href="#" class="course-link" data-course="iot">Ver Curso</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="fullscreen-btn" id="fullscreenBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+    </button>
+
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        // Animaciones iniciales
+        gsap.to('.hero h1', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.5
+        });
+
+        gsap.to('.hero p', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.8
+        });
+
+        gsap.to('.stats-banner', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 1.1
+        });
+
+        // Animación de las tarjetas al hacer scroll
+        const observeCards = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        gsap.to(entry.target, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.course-card').forEach(card => {
+                observer.observe(card);
+            });
+        };
+
+        observeCards();
+
+        // Funcionalidad de pantalla completa
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // Detalles de los cursos y modal
+        const courseDetails = {
+            arduino: {
+                title: "Introducción a Arduino",
+                description: "Este curso te introducirá al mundo de Arduino desde cero. Aprenderás sobre electrónica básica, programación y crearás proyectos prácticos.",
+                modules: [
+                    "Fundamentos de Arduino",
+                    "Programación básica",
+                    "Sensores y actuadores",
+                    "Proyectos prácticos"
+                ],
+                stats: {
+                    completion: "95%",
+                    employability: "82%",
+                    certification: "Certificado Oficial"
+                }
+            },
+            advanced: {
+                title: "Robótica Avanzada",
+                description: "Curso avanzado de robótica donde aprenderás a crear robots complejos y sistemas automatizados.",
+                modules: [
+                    "Diseño de robots",
+                    "Sistemas de control",
+                    "Inteligencia artificial básica",
+                    "Proyecto final"
+                ],
+                stats: {
+                    completion: "88%",
+                    employability: "94%",
+                    certification: "Certificado Profesional"
+                }
+            },
+            iot: {
+                title: "IoT con Arduino",
+                description: "Aprende a conectar tus proyectos de Arduino a Internet y crear dispositivos IoT.",
+                modules: [
+                    "Fundamentos de IoT",
+                    "Conectividad WiFi",
+                    "APIs y servicios web",
+                    "Proyectos IoT"
+                ],
+                stats: {
+                    completion: "91%",
+                    employability: "89%",
+                    certification: "Certificado Especialista"
+                }
+            },
+            iot: {
+                title: "IoT con Arduino",
+                description: "Aprende a conectar tus proyectos de Arduino a Internet y crear dispositivos IoT.",
+                modules: [
+                    "Fundamentos de IoT",
+                    "Conectividad WiFi",
+                    "APIs y servicios web",
+                    "Proyectos IoT"
+                ],
+                stats: {
+                    completion: "91%",
+                    employability: "89%",
+                    certification: "Certificado Especialista"
+                }
+            }
+        };
+
+        // Modal functionality
+        const modal = document.querySelector('.modal');
+        const modalContent = document.querySelector('.modal-body');
+        const closeModal = document.querySelector('.close-modal');
+
+        function openModal(courseData) {
+            modalContent.innerHTML = `
+                <h2 class="course-title">${courseData.title}</h2>
+                <p style="margin: 1rem 0">${courseData.description}</p>
+                
+                <h3 style="color: var(--arduino-teal); margin: 1rem 0">Módulos del Curso</h3>
+                <ul style="list-style: none; margin-bottom: 2rem">
+                    ${courseData.modules.map(module => `
+                        <li style="margin: 0.5rem 0; padding: 0.5rem; background: #f5f5f5; border-radius: 5px;">
+                            <svg style="width: 16px; height: 16px; margin-right: 8px; vertical-align: middle;" viewBox="0 0 24 24" fill="none" stroke="var(--arduino-teal)" stroke-width="2">
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            ${module}
+                        </li>
+                    `).join('')}
+                </ul>
+
+                <div style="background: var(--arduino-light); color: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
+                    <h3 style="margin-bottom: 1rem">Estadísticas del Curso</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: bold">${courseData.stats.completion}</div>
+                            <div>Tasa de Finalización</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: bold">${courseData.stats.employability}</div>
+                            <div>Empleabilidad</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: bold">${courseData.stats.certification}</div>
+                            <div>Certificación</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="course-link" style="margin-top: 2rem; width: 100%;">
+                    Inscribirse Ahora
+                </button>
+            `;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Animate modal opening
+            gsap.fromTo('.modal-content', 
+                { y: -50, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.4 }
+            );
+        }
+
+        function closeModalHandler() {
+            gsap.to('.modal-content', {
+                y: -50,
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Event Listeners
+        document.querySelectorAll('[data-course]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const courseData = courseDetails[e.target.dataset.course];
+                openModal(courseData);
+            });
+        });
+
+        closeModal.addEventListener('click', closeModalHandler);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalHandler();
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeModalHandler();
+            }
+        });
+
+        // Prevent scrolling when modal is open
+        modal.addEventListener('wheel', (e) => {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>

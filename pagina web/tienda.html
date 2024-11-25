@@ -1,0 +1,746 @@
+<html>
+<head>
+    <title>Arduino Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script>
+        function openProductPage(productId) {
+            document.querySelectorAll('.productPage').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(productId).style.display = 'block';
+            document.getElementById('galleryPage').style.display = 'none';
+        }
+
+        function closeProductPage(productId) {
+            document.getElementById(productId).style.display = 'none';
+            document.getElementById('galleryPage').style.display = 'block';
+        }
+
+        function changeImage(productId, src) {
+            document.getElementById(productId + 'MainImage').src = src;
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+    <div id="galleryPage" class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Arduino Store</h1>
+        <div class="grid grid-cols-3 gap-4">
+            <!-- Product 1 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product1')">
+                <img alt="Arduino Uno R3" class="w-full" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Uno R3</h2>
+                <p class="text-gray-600">MXN 500.00</p>
+            </div>
+            <!-- Product 2 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product2')">
+                <img alt="Arduino Mega 2560" class="w-full" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Mega 2560</h2>
+                <p class="text-gray-600">MXN 700.00</p>
+            </div>
+            <!-- Product 3 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product3')">
+                <img alt="Arduino Nano" class="w-full" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Nano</h2>
+                <p class="text-gray-600">MXN 300.00</p>
+            </div>
+            <!-- Product 4 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product4')">
+                <img alt="Arduino Leonardo" class="w-full" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Leonardo</h2>
+                <p class="text-gray-600">MXN 450.00</p>
+            </div>
+            <!-- Product 5 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product5')">
+                <img alt="Arduino Due" class="w-full" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Due</h2>
+                <p class="text-gray-600">MXN 800.00</p>
+            </div>
+            <!-- Product 6 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product6')">
+                <img alt="Arduino Micro" class="w-full" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Micro</h2>
+                <p class="text-gray-600">MXN 350.00</p>
+            </div>
+            <!-- Product 7 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product7')">
+                <img alt="Arduino Pro Mini" class="w-full" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino Pro Mini</h2>
+                <p class="text-gray-600">MXN 250.00</p>
+            </div>
+            <!-- Product 8 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product8')">
+                <img alt="Arduino MKR1000" class="w-full" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino MKR1000</h2>
+                <p class="text-gray-600">MXN 900.00</p>
+            </div>
+            <!-- Product 9 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product9')">
+                <img alt="Arduino MKRZero" class="w-full" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino MKRZero</h2>
+                <p class="text-gray-600">MXN 600.00</p>
+            </div>
+            <!-- Product 10 -->
+            <div class="border p-4 cursor-pointer" onclick="openProductPage('product10')">
+                <img alt="Arduino MKRFOX1200" class="w-full" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg"/>
+                <h2 class="text-xl font-bold mt-2">Arduino MKRFOX1200</h2>
+                <p class="text-gray-600">MXN 650.00</p>
+            </div>
+        </div>
+    </div>
+    <!-- Product Pages -->
+    <div id="product1" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product1')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Uno R3 Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Uno R3 Microcontroller Board" class="w-full" height="600" id="product1MainImage" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJ ```html
+JraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Uno R3 is a microcontroller board based on the ATmega328P. It has 14 digital input/output pins, 6 analog inputs, a 16 MHz quartz crystal, a USB connection, a power jack, an ICSP header, and a reset button. It contains everything needed to support the microcontroller; simply connect it to a computer with a USB cable or power it with an AC-to-DC adapter or battery to get started.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOB qUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product1', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 500.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity1">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity1" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">This Arduino board is perfect for both beginners and professional developers. Its versatility and ease of use make it a must-have for any electronics enthusiast.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product2" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product2')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Mega 2560 Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Mega 2560 Microcontroller Board" class="w-full" height="600" id="product2MainImage" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2 ```html
+DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Mega 2560 is a microcontroller board based on the ATmega2560. It has 54 digital input/output pins, 16 analog inputs, 4 UARTs (hardware serial ports), a 16 MHz crystal oscillator, a USB connection, a power jack, an ICSP header, and a reset button. It is compatible with most shields designed for the Arduino Duemilanove or Diecimila.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50 ```html
+"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product2', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 700.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity2">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity2" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Mega 2560 is ideal for projects that require more input/output pins and memory. It is widely used in robotics, automation, and complex projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product3" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product3')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Nano Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Nano Microcontroller Board" class="w-full" height="600" id="product3MainImage" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer"height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Nano is a small, complete, and breadboard-friendly board based on the ATmega328P. It has 14 digital input/output pins, 6 analog inputs, a USB connection, a power jack, an ICSP header, and a reset button. It is ideal for projects where space is a concern.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4 CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product3', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 300.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity3">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity3" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Nano is perfect for small projects and is widely used in wearable electronics and compact devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product4" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product4')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Leonardo Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Leonardo Microcontroller Board" class="w-full" height="600" id="product4MainImage" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https ://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Leonardo is a microcontroller board based on the ATmega32u4. It has 20 digital input/output pins, 12 of which can be used as analog inputs, a 16 MHz crystal oscillator, a USB connection, a power jack, an ICSP header, and a reset button. It is capable of acting as a mouse or keyboard.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28az UMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product4', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 450.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity4">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity4" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Leonardo is perfect for projects that require USB communication. Its ability to emulate a keyboard or mouse makes it unique among Arduino boards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product5" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product5')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Due Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Due Microcontroller Board" class="w-full" height="600" id="product5MainImage" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Due is a powerful microcontroller board based on the Atmel SAM3X8E ARM Cortex-M3 CPU. It has 54 digital input/output pins, 12 analog inputs, 4 UARTs, a 84 MHz clock, and a USB connection. It is ideal for projects that require high performance and processing power.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product5', 'https://storage.googleapis.com/a1aa/image/jaV ```html
+xeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 800.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity5">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity5" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Due is perfect for projects that require high performance and processing power. Its advanced features make it suitable for complex applications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product6" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product6')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Micro Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Micro Microcontroller Board" class="w-full" height="600" id="product6MainImage" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoX ```html
+ydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Micro is a small microcontroller board based on the ATmega32U4. It has 20 digital input/output pins, 12 of which can be used as analog inputs, a 16 MHz crystal oscillator, a USB connection, a power jack, an ICSP header, and a reset button. It is designed for projects that require a compact form factor.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product6', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxe ```html
+eiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 350.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity6">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity6" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Micro is perfect for compact projects and is widely used in wearable electronics and small devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product7" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product7')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Pro Mini Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Pro Mini Microcontroller Board" class="w-full" height="600" id="product7MainImage" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    <img alt="Thumbnail 3" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width=" 50"/>
+                    <img alt="Thumbnail 4" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 5" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Pro Mini is a small microcontroller board based on the ATmega328P. It has 14 digital input/output pins, 6 analog inputs, a USB connection, and a reset button. It is designed for projects where space is limited.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="Arduino Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                        <img alt="Arduino Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                        <img alt="Arduino Green" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg')" src="https://storage.googleapis.com/a1aa/image/jaVxeiuesfXDMJraIegzu5bHHRjGfq98IlaYxRVvEE9MoXydC.jpg" width="50"/>
+                        <img alt="Arduino Yellow" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product7', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <img alt="Arduino Logo" class="w-24" height="50" src="https://storage.googleapis.com/a1 aa/image/WMoMz15emfs1NEHoZHrRrHf5f91at7FGGEfGpg5RcGLmnXydC.jpg" width="100"/>
+                </div>
+                <div class="mt-4">
+                    <a class="text-blue-500 text-sm" href="#">See All Arduino Boards</a>
+                </div>
+                <div class="mt-4 border p-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 250.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity7">Quantity:</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quantity7" max="10" min="1" name="quantity" type="number" value="1"/>
+                    </div>
+                    <button class="bg-yellow-500 text-white p-2 mt-2 w-full rounded">Add to Cart</button>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm">The Arduino Pro Mini is ideal for projects where space is a concern. Its compact size makes it perfect for embedding in small devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product8" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product8')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino MKR1000 Microcontroller Board</h1>
+                <div class="mt-4">
+                    <img alt="Arduino MKR1000" class="w-full" height="600" id="product8MainImage" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                    <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino MKR1000 is a powerful board designed for IoT applications. It features Wi-Fi connectivity and is perfect for projects that require internet access.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm font-bold">Choose Style:</p>
+                    <div class="flex space-x-2 mt-2">
+                        <img alt="MKR1000 Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product 8', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                        <img alt="MKR1000 Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 500.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity8">Quantity:</label>
+                        <input class="form-input border rounded" type="number" id="quantity8" name="quantity8" min="1" value="1"/>
+                    </div>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product9" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product9')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Mega 2560</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Mega 2560" class="w-full" height="600" id="product9MainImage" src="https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product9', 'https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg')" src="https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Mega 2560 is a microcontroller board based on the ATmega2560. It has 54 digital input/output pins, 16 analog inputs, and a USB connection.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 800.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity9">Quantity:</label>
+                        <input class="form-input border rounded" type="number" id="quantity9" name="quantity9" min="1" value="1"/>
+                    </div>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product10" class="productPage container mx-auto p-4" style="display: none;">
+        <div class="flex justify-end">
+            <button class="text-gray- 500 hover:text-gray-700" onclick="closeProductPage('product10')">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex">
+            <div class="w-1/2">
+                <h1 class="text-2xl font-bold">Arduino Due</h1>
+                <div class="mt-4">
+                    <img alt="Arduino Due" class="w-full" height="600" id="product10MainImage" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="400"/>
+                </div>
+                <div class="flex mt-4 space-x-2">
+                    <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product10', 'https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg')" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="50"/>
+                </div>
+            </div>
+            <div class="w-1/2 pl-8">
+                <div class="border-b pb-4">
+                    <h2 class="text-xl font-bold">Product Description:</h2>
+                    <p class="mt-2 text-sm">The Arduino Due is a microcontroller board based on the Atmel SAM3X8E ARM Cortex-M3 CPU. It has 54 digital input/output pins, 12 analog inputs, and a USB connection. It is designed for advanced projects requiring more processing power.</p>
+                    <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xl font-bold">Price</p>
+                    <p class="text-2xl font-bold text-gray-800">MXN 1,200.00</p>
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold mb-2" for="quantity10">Quantity:</label>
+                        <input class="form-input border rounded" type="number" id="quantity10" name="quantity10" min="1" value="1"/>
+                    </div>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product8" class="productPage container mx-auto p-4" style="display: none;">
+      <div class="flex justify-end">
+          <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product8')">
+              <i class="fas fa-times text-2xl"></i>
+          </button>
+      </div>
+      <div class="flex">
+          <div class="w-1/2">
+              <h1 class="text-2xl font-bold">Arduino MKR1000 Microcontroller Board</h1>
+              <div class="mt-4">
+                  <img alt="Arduino MKR1000" class="w-full" height="600" id="product8MainImage" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="400"/>
+              </div>
+              <div class="flex mt-4 space-x-2">
+                  <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg')" src="https://storage.googleapis.com/a1aa/image/0Jsg6ICKsg7eDSs4veAUIe4CegJ2xRIo5GBEu2DO23a1zL5OB.jpg" width="50"/>
+                  <img alt="Thumbnail 2" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg')" src="https://storage.googleapis.com/a1aa/image/TCh2uyKoRTYSBd8mYhRMbqKnkDeG0WEXOVugh3PUfuHe5lcnA.jpg" width="50"/>
+              </div>
+          </div>
+          <div class="w-1/2 pl-8">
+              <div class="border-b pb-4">
+                  <h2 class="text-xl font-bold">Product Description:</h2>
+                  <p class="mt-2 text-sm">The Arduino MKR1000 is a powerful board designed for IoT applications. It features Wi-Fi connectivity and is perfect for projects that require internet access.</p>
+                  <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+              </div>
+              <div class="mt-4">
+                  <p class="text-sm font-bold">Choose Style:</p>
+                  <div class="flex space-x-2 mt-2">
+                      <img alt="MKR1000 Blue" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg')" src="https://storage.googleapis.com/a1aa/image/oN7zEfiz43RbFiR6fAOBqUFIM8L4RNLbbkxvg0vaHCx68SuTA.jpg" width="50"/>
+                      <img alt="MKR1000 Red" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product8', 'https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg')" src="https://storage.googleapis.com/a1aa/image/kyX6PrGEjWrRMJ84CwCd9n2Xz1kxOA28azUMnMi8cgAQvk7E.jpg" width="50"/>
+                  </div>
+              </div>
+              <div class="mt-4">
+                  <p class="text-xl font-bold">Price</p>
+                  <p class="text-2xl font-bold text-gray-800">MXN 500.00</p>
+                  <div class="mt-4">
+                      <label class="block text-sm font-bold mb-2" for="quantity 8">Quantity:</label>
+                      <input class="form-input border rounded" type="number" id="quantity8" name="quantity8" min="1" value="1"/>
+                  </div>
+                  <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div id="product9" class="productPage container mx-auto p-4" style="display: none;">
+    <div class="flex justify-end">
+        <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product9')">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+    <div class="flex">
+        <div class="w-1/2">
+            <h1 class="text-2xl font-bold">Arduino Mega 2560 Microcontroller Board</h1>
+            <div class="mt-4">
+                <img alt="Arduino Mega 2560" class="w-full" height="600" id="product9MainImage" src="https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg" width="400"/>
+            </div>
+            <div class="flex mt-4 space-x-2">
+                <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product9', 'https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg')" src="https://storage.googleapis.com/a1aa/image/Arduino_Mega_2560.jpg" width="50"/>
+            </div>
+        </div>
+        <div class="w-1/2 pl-8">
+            <div class="border-b pb-4">
+                <h2 class="text-xl font-bold">Product Description:</h2>
+                <p class="mt-2 text-sm">The Arduino Mega 2560 is a microcontroller board based on the ATmega2560. It has 54 digital input/output pins, 16 analog inputs, and a USB connection.</p>
+                <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+            </div>
+            <div class="mt-4">
+                <p class="text-xl font-bold">Price</p>
+                <p class="text-2xl font-bold text-gray-800">MXN 800.00</p>
+                <div class="mt-4">
+                    <label class="block text-sm font-bold mb-2" for="quantity9">Quantity:</label>
+                    <input class="form-input border rounded" type="number" id="quantity9" name="quantity9" min="1" value="1"/>
+                </div>
+                <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="product10" class="productPage container mx-auto p-4" style="display: none;">
+    <div class="flex justify-end">
+        <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product10')">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+    <div class="flex">
+        <div class="w-1/2">
+            <h1 class="text-2xl font-bold">Arduino Due Microcontroller Board</h1>
+            <div class="mt-4">
+                <img alt="Arduino Due" class="w-full" height="600" id="product10MainImage" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="400"/>
+            </div>
+            <div class="flex mt-4 space-x-2">
+                <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product10', 'https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg')" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="50"/>
+            </div>
+        </div>
+        <div class="w-1/2 pl-8">
+            <div class="border-b pb-4">
+                <h2 class="text-xl font-bold">Product Description:</h2>
+                <p class="mt-2 text-sm">The Arduino Due is a microcontroller board based on the Atmel SAM3X8E ARM Cortex-M3 CPU. It has 54 digital input/output pins, 12 analog inputs, and a USB connection. It is designed for advanced projects requiring more processing power.</p>
+                <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+            </div>
+            <div class="mt-4">
+                <p class="text-xl font-bold">Price</p>
+                <p class="text-2xl font-bold text-gray-800">MXN 1,200.00</p>
+                <div class="mt-4">
+                    <label class="block text-sm font-bold mb-2" for="quantity10">Quantity:</label>
+                    <input class="form-input border rounded" type="number" id="quantity10" name="quantity10" min="1" value="1"/>
+                </div>
+                <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="product10" class="productPage container mx-auto p-4" style="display: none;">
+  <div class="flex justify-end">
+      <button class="text-gray-500 hover:text-gray-700" onclick="closeProductPage('product10')">
+          <i class="fas fa-times text-2xl"></i>
+      </button>
+  </div>
+  <div class="flex">
+      <div class="w-1/2">
+          <h1 class="text-2xl font-bold">Arduino Due Microcontroller Board</h1>
+          <div class="mt-4">
+              <img alt="Arduino Due" class="w-full" height="600" id="product10MainImage" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="400"/>
+          </div>
+          <div class="flex mt-4 space-x-2">
+              <img alt="Thumbnail 1" class="w-12 h-12 border cursor-pointer" height="50" onclick="changeImage('product10', 'https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg')" src="https://storage.googleapis.com/a1aa/image/Arduino_Due.jpg" width="50"/>
+          </div>
+      </div>
+      <div class="w-1/2 pl-8">
+          <div class="border-b pb-4">
+              <h2 class="text-xl font-bold">Product Description:</h2>
+              <p class="mt-2 text-sm">The Arduino Due is a microcontroller board based on the Atmel SAM3X8E ARM Cortex-M3 CPU. It has 54 digital input/output pins, 12 analog inputs, and a USB connection. It is designed for advanced projects requiring more processing power.</p>
+              <a class="text-blue-500 text-sm" href="#">Click to Read More About This Product</a>
+          </div>
+          <div class="mt-4">
+              <p class="text-xl font-bold">Price</p>
+              <p class="text-2xl font-bold text-gray-800">MXN 1,200.00</p>
+              <div class="mt-4">
+                  <label class="block text-sm font-bold mb-2" for="quantity10">Quantity:</label>
+                  <input class="form-input border rounded" type="number" id="quantity10" name="quantity10" min="1" value="1"/>
+              </div>
+              <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Add to Cart</button>
+          </div>
+      </div>
+  </div>
+</div>
+</body>
+</html> 

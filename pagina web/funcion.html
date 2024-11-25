@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro e Inicio de Sesión</title>
+</head>
+<body>
+  <style>
+    :root {
+    --arduino-blue: #00979D;
+    --arduino-green: #23D160;
+    --background-color: #f4f4f4;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 400px;
+    padding: 30px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.arduino-button {
+    background-color: var(--arduino-blue);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.avatar-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.upload-button {
+    background-color: var(--arduino-blue);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.welcome-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.welcome-content li {
+    margin: 10px 0;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+  </style>
+    <div class="container" id="authContainer">
+        <!-- Pantalla de Registro -->
+        <div id="registrationForm">
+            <h2>Registro de Usuario</h2>
+            <input type="text" id="username" placeholder="Nombre de usuario" required>
+            <input type="email" id="email" placeholder="Correo electrónico" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+            <button id="registerButton" class="arduino-button">Registrarse</button>
+            
+            <div class="social-login">
+                <p>O regístrate con:</p>
+                <button id="googleSignup" class="google-button">Registrarse con Google</button>
+            </div>
+            <p>¿Ya tienes cuenta? <a href="#" id="switchToLogin">Inicia Sesión</a></p>
+        </div>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <div id="loginForm" class="hidden">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+            <button id="loginButton" class="arduino-button">Iniciar Sesión</button>
+            
+            <div class="social-login">
+                <p>O inicia sesión con:</p>
+                <button id="googleLogin" class="google-button">Iniciar con Google</button>
+            </div>
+            <p>¿No tienes cuenta? <a href="#" id="switchToRegister">Regístrate</a></p>
+        </div>
+
+        <!-- Pantalla de Bienvenida -->
+        <div id="welcomeScreen" class="hidden">
+            <div class="welcome-content">
+                <h1>¡Bienvenido!</h1>
+                <p>Descubre todo lo que podemos hacer juntos</p>
+                <ul>
+                    <li>Explora nuevos proyectos</li>
+                    <li>Conecta con otros usuarios</li>
+                    <li>Desarrolla tus habilidades</li>
+                </ul>
+                <button id="nextButton" class="arduino-button">Comenzar</button>
+            </div>
+        </div>
+
+        <!-- Perfil de Usuario -->
+        <div id="userProfile" class="hidden">
+            <nav class="navbar">
+                <div class="logo">Mi Plataforma</div>
+                <div class="avatar-container">
+                    <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar">
+                </div>
+            </nav>
+
+            <div class="profile-content">
+                <h2 id="profileUsername">Nombre de Usuario</h2>
+                <div id="profileInfo"></div>
+            </div>
+        </div>
+
+        <!-- Modal de Edición de Perfil -->
+        <div id="editProfileModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Editar Perfil</h2>
+                <form id="editProfileForm">
+                    <div class="avatar-edit">
+                        <img id="editAvatar" src="default-avatar.png" alt="Avatar">
+                        <input type="file" id="avatarUpload" accept="image/*">
+                        <label for="avatarUpload" class="upload-button">Cambiar Avatar</label>
+                    </div>
+                    <input type="text" id="editUsername" placeholder="Nombre de usuario">
+                    <input type="email" id="editEmail" placeholder="Correo electrónico">
+                    <input type="text" id="editBio" placeholder="Biografía">
+                    <button type="submit" class="arduino-button">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    // Selectores de elementos
+    const registrationForm = document.getElementById('registrationForm');
+    const loginForm = document.getElementById('loginForm');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const userProfile = document.getElementById('userProfile');
+    const editProfileModal = document.getElementById('editProfileModal');
+    const userAvatar = document.getElementById('userAvatar');
+
+    // Botones de navegación
+    const switchToLogin = document.getElementById('switchToLogin');
+    const switchToRegister = document.getElementById('switchToRegister');
+    const registerButton = document.getElementById('registerButton');
+    const loginButton = document.getElementById('loginButton');
+    const nextButton = document.getElementById('nextButton');
+    const closeButton = document.querySelector('.close-button');
+
+    // Elementos de edición de perfil
+    const editProfileForm = document.getElementById('editProfileForm');
+    const avatarUpload = document.getElementById('avatarUpload');
+    const editAvatar = document.getElementById('editAvatar');
+
+    // Cambiar entre registro e inicio de sesión
+    switchToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        registrationForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+    });
+
+    switchToRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('hidden');
+        registrationForm.classList.remove('hidden');
+    });
+
+    // Registro de usuario
+    registerButton.addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Las contraseñas no coinciden');
+            return;
+        }
+
+        // Simulación de registro
+        localStorage.setItem('user', JSON.stringify({
+            username,
+            email
+        }));
+
+        registrationForm.classList.add('hidden');
+        welcomeScreen.classList.remove('hidden');
+    });
+
+    // Inicio de sesión
+    loginButton.addEventListener('click', () => {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        
+        if (storedUser && storedUser.email === email) {
+            loginForm.classList.add('hidden');
+            userProfile.classList.remove('hidden');
+            document.getElementById('profileUsername').textContent = storedUser.username;
+        } else {
+            alert('Credenciales incorrectas');
+        }
+    });
+
+    // Botón siguiente en pantalla de bienvenida
+    nextButton.addEventListener('click', () => {
+        welcomeScreen.classList.add('hidden');
+        userProfile.classList.remove('hidden');
+    });
+
+    // Edición de perfil - Avatar
+    userAvatar.addEventListener('click', () => {
+        editProfileModal.classList.remove('hidden');
+    });
+
+    // Cerrar modal de edición
+    closeButton.addEventListener('click', () => {
+        editProfileModal.classList.add('hidden');
+    });
+
+    // Previsualización de avatar
+    avatarUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            editAvatar.src = e.target.result;
+            userAvatar.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    // Guardar cambios de perfil
+    editProfileForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const newUsername = document.getElementById('editUsername').value;
+        const newEmail = document.getElementById('editEmail').value;
+        const newBio = document.getElementById('editBio').value;
+
+        // Actualizar datos de usuario
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        storedUser.username = newUsername || storedUser.username;
+        storedUser.email = newEmail || storedUser.email;
+
+        localStorage.setItem('user', JSON.stringify(storedUser));
+        document.getElementById('profileUsername').textContent = storedUser.username;
+
+        editProfileModal.classList.add('hidden');
+    });
+});
+    </script>
+</body>
+</html>

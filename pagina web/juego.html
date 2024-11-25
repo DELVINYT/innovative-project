@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Quiz Challenge</title>
+    <style>
+        :root {
+            --arduino-teal: #00979C;
+            --arduino-blue: #0C435A;
+            --arduino-orange: #E47128;
+            --neon-blue: #4DFFF3;
+            --neon-purple: #B026FF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0C0C2C, #1A1A3A);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .circuit-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, transparent 0, transparent 2px, var(--arduino-teal) 2px, transparent 3px) 0 0/30px 30px,
+                radial-gradient(circle at 90% 80%, transparent 0, transparent 2px, var(--arduino-orange) 2px, transparent 3px) 0 0/40px 40px;
+            opacity: 0.1;
+            animation: circuitMove 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes circuitMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 100px 100px, -100px -100px; }
+        }
+
+        .floating-components {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .component {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(77, 255, 243, 0.2);
+            border: 1px solid rgba(77, 255, 243, 0.4);
+            border-radius: 8px;
+            animation: componentFloat 8s linear infinite;
+        }
+
+        @keyframes componentFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .welcome-container {
+            background: rgba(12, 12, 44, 0.9);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(77, 255, 243, 0.3);
+            box-shadow: 0 0 20px rgba(77, 255, 243, 0.2);
+            max-width: 800px;
+            width: 90%;
+            z-index: 1;
+            animation: containerFloat 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            display: none;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .robot 
+        .robot-container {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+        }
+
+        .robot-head {
+            width: 80px;
+            height: 80px;
+            background: var(--arduino-teal);
+            border-radius: 15px;
+            margin: 0 auto;
+            position: relative;
+            animation: robotHeadBob 2s ease-in-out infinite;
+        }
+
+        .robot-eye {
+            width: 20px;
+            height: 20px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            animation: robotEyePulse 1.5s ease-in-out infinite;
+        }
+
+        .robot-eye.left { left: 15px; }
+        .robot-eye.right { right: 15px; }
+
+        @keyframes robotHeadBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px) rotate(3deg); }
+        }
+
+        @keyframes robotEyePulse {
+            0%, 100% { box-shadow: 0 0 10px var(--neon-blue); }
+            50% { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+        }
+
+        .title {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+            position: relative;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px var(--neon-blue); }
+            50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+        }
+
+        .description {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .start-btn {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+            z-index: 1;
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--neon-blue);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .start-btn:hover::before {
+            width: 300%;
+            height: 300%;
+        }
+
+        .start-btn:hover {
+            color: #0C0C2C;
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .circuit-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            height: 2px;
+            width: 100%;
+            animation: circuitLinePulse 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes circuitLinePulse {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Estilos del juego */
+        .score-board {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--arduino-teal);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .component-image {
+            max-width: 200px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .component-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid var(--arduino-teal);
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background: var(--arduino-teal);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .correct {
+            background: #4CAF50 !important;
+            color: white;
+        }
+
+        .incorrect {
+            background: #f44336 !important;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+        }
+
+        .visible {
+            display: block !important;
+            opacity: 1;
+        }
+
+        /* Estilos de la pantalla final */
+        .end-screen {
+            background: rgba(12, 12, 44, 0.9);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(77, 255, 243, 0.3);
+            box-shadow: 0 0 20px rgba(77, 255, 243, 0.2);
+            max-width: 800px;
+            width: 90%;
+            display: none;
+            color: white;
+        }
+
+        .counter {
+            font-size: 3rem;
+            color: var(--neon-blue);
+            margin: 1rem 0;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            background: var(--neon-blue);
+            color: #0C0C2C;
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1000;
+            animation: feedbackPop 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes feedbackPop {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        .feedback {
+    animation: feedbackPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Cambiar de 1s a 0.5s */
+}
+    </style>
+</head>
+<body>
+    <div class="circuit-background"></div>
+    <div class="floating-components"></div>
+    
+    <!-- Pantalla de Bienvenida -->
+    <div class="welcome-container" id="welcome-screen">
+        <div ```html
+        class="robot-container">
+            <div class="robot-head">
+                <div class="robot-eye left"></div>
+                <div class="robot-eye right"></div>
+            </div>
+        </div>
+
+        <h1 class="title">Arduino Quiz Challenge</h1>
+        
+        <div class="description">
+            Pon a prueba tus conocimientos sobre el mundo de Arduino y la electrónica.
+            ¡Demuestra que eres un verdadero experto!
+        </div>
+
+        <button class="start-btn" onclick="startGame()">INICIAR DESAFÍO</button>
+
+        <div class="circuit-lines">
+            <div class="circuit-line" style="top: 20%"></div>
+            <div class="circuit-line" style="top: 40%"></div>
+            <div class="circuit-line" style="top: 60%"></div>
+            <div class="circuit-line" style="top: 80%"></div>
+        </div>
+    </div>
+
+    <!-- Pantalla del Juego -->
+    <div class="game-container hidden" id="game-screen">
+        <div class="score-board">
+            <p>Puntos: <span id="points">0</span></p>
+            <p>Errores: <span id="errors">0</span></p>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <h2>¿Qué componente es este?</h2>
+        <img id="component-image" class="component-image" src="/api/placeholder/200/200" alt="Componente">
+        <div class="component-options" id="options"></div>
+    </div>
+
+    <!-- Pantalla Final -->
+    <div class="end-screen" id="end-screen">
+        <h1>¡Juego Terminado!</h1>
+        <p>Puntuación final:</p>
+        <div class="counter" id="final-score">0</div>
+        <p>Aciertos: <span id="final-correct">0</span></p>
+        <p>Errores: <span id="final-errors">0</span></p>
+        <button class="btn" onclick="restartGame()">Jugar de nuevo</button>
+    </div>
+    <script>
+        
+// Variables globales
+let currentQuestion = 0;
+let points = 0;
+let errors = 0;
+let questions = [
+    {
+        image: "https://projects.arduinocontent.cc/cover-images/d9d1ae05-b77b-4d9e-9ab3-bf0f0e83d002.png", // LED Rojo
+        correct: "LED Rojo",
+        options: shuffle(["LED Rojo", "Resistencia", "Capacitor", "Transistor"])
+    },
+    {
+        image: "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/MW10K/66e9e8d6943a0.webp", // Resistencia 10K
+        correct: "Resistencia 10K",
+        options: shuffle(["LED", "Resistencia 10K", "Potenciómetro", "Diodo"])
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2017/03/23/12/32/arduino-2168193_1280.png", // Arduino UNO
+        correct: "Arduino UNO",
+        options: shuffle(["Arduino UNO", "Arduino Nano", "Arduino Mega", "Arduino Pro Mini"])
+    },
+    {
+        image: "https://cdn.elchangarro.com.sv/image/uploads/ec/21157-CE220_16V-h.PNG?quality=40&width=1000&height=1000", // Capacitor Electrolítico
+        correct: "Capacitor Electrolítico",
+        options: shuffle(["LED", "Resistencia", "Capacitor Electrolítico", "Transistor"])
+    },
+    {
+        image: "https://grupoelectrostore.com/wp-content/uploads/2023/10/2n3904_1.png", // Transistor NPN
+        correct: "Transistor NPN",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Transistor NPN"])
+    },
+    {
+        image: "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/POT5KD/66903db78f92b.webp", // Potenciómetro 10K
+        correct: "Potenciómetro 10K",
+        options: shuffle(["LED", "Resistencia", "Potenciómetro 10K", "Diodo"])
+    },
+    {
+        image: "https://www.compomax.com.br/web/imagem/grupo/diodo-zener.webp", // Diodo Zener
+        correct: "Diodo Zener",
+        options: shuffle(["LED", "Resistencia", "Potenciómetro", "Diodo Zener"])
+    },
+    {
+        image: "https://www.mouser.do/images/marketingid/2019/img/128734529.png?v=070223.0500", // Arduino Nano
+        correct: "Arduino Nano",
+        options: shuffle(["Arduino UNO", "Arduino Nano", "Arduino Mega", "Arduino Pro Mini"])
+    },
+    {
+        image: "https://cdn.prod.website-files.com/5fabc8dadc66fc8a47db709b/66ffe751465f2aea3a1358be_654e6a4ee005e5d042d928cb_arduino-mega-board.webp", // Arduino Mega
+        correct: "Arduino Mega",
+        options: shuffle(["Arduino UNO", "Arduino Nano", "Arduino Mega", "Arduino Pro Mini"])
+    },
+    {
+        image: "https://freesvg.org/img/pro-mini-nologo.png", // Arduino Pro Mini
+        correct: "Arduino Pro Mini",
+        options: shuffle(["Arduino UNO", "Arduino Nano", "Arduino Mega", "Arduino Pro Mini"])
+    },
+    {
+        image: "https://ultra-lab.net/wp-content/uploads/2017/12/HCSR04.png", // Sensor de Ultrasonido HC-SR04
+        correct: "Sensor de Ultrasonido HC-SR04",
+        options: shuffle(["LED", "Resistencia", "Sensor de Ultrasonido HC-SR04", "Transistor"])
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2017/01/31/13/22/blue-2023981_1280.png", // LED Azul
+        correct: "LED Azul",
+        options: shuffle(["LED Azul", "Resistencia", "Capacitor", "Transistor"])
+    },
+    {
+        image: "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/CW5K1 /66e0ac01c2755.webp", // Resistencia 5K
+        correct: "Resistencia 5K",
+        options: shuffle(["LED", "Resistencia 5K", "Potenciómetro", "Diodo"])
+    },
+    {
+        image: "https://cdnx.jumpseller.com/electrosenaelectronica/image/35987073/resize/610/610?1685737000", // Capacitor Cerámico
+        correct: "Capacitor Cerámico",
+        options: shuffle(["LED", "Resistencia", "Capacitor Cerámico", "Diodo"])
+    },
+    {
+        image: "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/6A10/6116c1d08b684.webp", // Diodo Rectificador
+        correct: "Diodo Rectificador",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Diodo Rectificador"])
+    },
+    {
+        image: "https://cdn11.bigcommerce.com/s-4gblq69s7s/images/stencil/1280x1280/products/1410/895/TO-220__50446.1718569632.png?c=1", // Transistor PNP
+        correct: "Transistor PNP",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Transistor PNP"])
+    },
+    {
+        image: "https://i0.wp.com/j-rpm.com/wp-content/uploads/2018/05/DHT11-300x289.png?resize=660%2C636", // Sensor de Temperatura
+        correct: "Sensor de Temperatura",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Sensor de Temperatura"])
+    },
+    {
+        image: "https://cdn-reichelt.de/bilder/web/xxl_ws/A300/KY-019.png", // Módulo de Relé
+        correct: "Módulo de Relé",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Módulo de Relé"])
+    },
+    {
+        image: "https://nanoparuro.com/web/image/product.template/293/image_1920?unique=a7c2293", // Sensor de Movimiento PIR
+        correct: "Sensor de Movimiento PIR",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Sensor de Movimiento PIR"])
+    },
+    {
+        image: "https://hifisac.com/web/image/product.template/2959/image_1024?unique=4f18167", // Módulo de Bluetooth HC-05
+        correct: "Módulo de Bluetooth HC-05",
+        options: shuffle(["LED", "Resistencia", "Capacitor", "Módulo de Bluetooth HC-05"])
+    }
+];
+
+// Función para mezclar las opciones
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+
+
+    // Generar componentes flotantes
+    // Generar componentes flotantes
+function generateFloatingComponents() {
+    const container = document.querySelector('.floating-components');
+    
+    // Array de imágenes de componentes flotantes
+    const componentImages = [
+        "https://projects.arduinocontent.cc/cover-images/d9d1ae05-b77b-4d9e-9ab3-bf0f0e83d002.png", // LED Rojo
+        "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/MW10K/66e9e8d6943a0.webp", // Resistencia 10K
+        "https://cdn.pixabay.com/photo/2017/03/23/12/32/arduino-2168193_1280.png", // Arduino UNO
+        "https://cdn.elchangarro.com.sv/image/uploads/ec/21157-CE220_16V-h.PNG?quality=40&width=1000&height=1000", // Capacitor Electrolítico
+        "https://grupoelectrostore.com/wp-content/uploads/2023/10/2n3904_1.png", // Transistor NPN
+        "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/POT5KD/66903db78f92b.webp", // Potenciómetro 10K
+        "https://www.compomax.com.br/web/imagem/grupo/diodo-zener.webp", // Diodo Zener
+        "https://www.mouser.do/images/marketingid/2019/img/128734529.png?v=070223.0500", // Arduino Nano
+        "https://cdn.prod.website-files.com/5fabc8dadc66fc8a47db709b/66ffe751465f2aea3a1358be_654e6a4ee005e5d042d928cb_arduino-mega-board.webp", // Arduino Mega
+        "https://freesvg.org/img/pro-mini-nologo.png", // Arduino Pro Mini
+        "https://ultra-lab.net/wp-content/uploads/2017/12/HCSR04.png", // Sensor de Ultrasonido HC-SR04
+        "https://cdn.pixabay.com/photo/2017/01/31/13/22/blue-2023981_1280.png", // LED Azul
+        "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/CW5K1/66e0ac01c2755.webp", // Resistencia 5K
+        "https://cdnx.jumpseller.com/electrosenaelectronica/image/35987073/resize/610/610?1685737000", // Capacitor Cerámico
+        "https://mvelectronica.s3.us-east-2.amazonaws.com/productos/6A10/6116c1d08b684.webp", // Diodo Rectificador
+        "https://cdn11.bigcommerce.com/s-4gblq69s7s/images/stencil/1280x1280/products/1410/895/TO-220__50446.1718569632.png?c=1", // Transistor PNP
+        "https://i0.wp.com/j-rpm.com/wp-content/uploads/2018/05/DHT11-300x289.png?resize=660%2C636", // Sensor de Temperatura
+        "https://cdn-reichelt.de/bilder/web/xxl_ws/A300/KY-019.png", // Módulo de Relé
+        "https://nanoparuro.com/web/image/product.template/293/image_1920?unique=a7c2293", // Sensor de Movimiento PIR
+        "https://hifisac.com/web/image/product.template/2959/image_1024?unique=4f18167"  // Módulo de Bluetooth HC-05
+    ];
+
+    for (let i = 0; i < 20; i++) {
+        const component = document.createElement('div');
+        component.className = 'component';
+        component.style.left = `${Math.random() * 100}%`;
+        component.style.animationDelay = `${Math.random() * 8}s`;
+
+        // Crear un elemento de imagen
+        const img = document.createElement('img');
+        img.src = componentImages[i % componentImages.length];
+        img.alt = 'Componente flotante'; // Texto alternativo para accesibilidad
+        img.style.width = '40px'; // Ajusta el tamaño de la imagen
+        img.style.height = '40px'; // Ajusta el tamaño de la imagen
+        img.style.borderRadius = '8px'; // Bordes redondeados
+
+        // Añadir la imagen al componente
+        component.appendChild(img);
+        container.appendChild(component);
+    }
+}
+
+    // Función para guardar el estado del juego en localStorage
+    function saveGameState() {
+        const gameState = {
+            currentQuestion: currentQuestion,
+            points: points,
+            errors: errors
+        };
+        localStorage.setItem('arduinoQuizState', JSON.stringify(gameState));
+    }
+
+    // Función para cargar el estado del juego desde localStorage
+    function loadGameState() {
+        const savedState = JSON.parse(localStorage.getItem('arduinoQuizState'));
+        if (savedState) {
+            currentQuestion = savedState.currentQuestion;
+            points = savedState.points;
+            errors = savedState.errors;
+            document.getElementById('points').textContent = points;
+            document.getElementById('errors').textContent = errors;
+        }
+    }
+
+    // Iniciar juego
+    function startGame() {
+        loadGameState(); // Cargar estado guardado al iniciar el juego
+        document.getElementById('welcome-screen').classList.add('hidden');
+        document.getElementById('game-screen').classList.remove('hidden');
+        document.getElementById('game-screen').classList.add('visible');
+        loadQuestion();
+    }
+
+    // Cargar pregunta
+    function loadQuestion() {
+        if (currentQuestion >= questions.length) {
+            endGame();
+            return;
+        }
+
+        const question = questions[currentQuestion];
+        document.getElementById('component-image').src = question.image;
+        const optionsContainer = document.getElementById('options');
+        optionsContainer.innerHTML = '';
+
+        question.options.forEach(option => {
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.textContent = option;
+            button.onclick = () => checkAnswer(option);
+            optionsContainer.appendChild(button);
+        });
+
+        updateProgress();
+    }
+
+    // Verificar respuesta
+    function checkAnswer(selected) {
+        const correct = questions[currentQuestion].correct;
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(button => {
+            button.disabled = true;
+            if (button.textContent === correct) {
+                button.classList.add('correct');
+            }
+            if (button.textContent === selected && selected !== correct) {
+                button.classList.add('incorrect');
+            }
+        });
+
+        if (selected === correct) {
+            points += 10;
+            showFeedback('¡Correcto!', '#4CAF50');
+        } else {
+            errors++;
+            showFeedback('¡Incorrecto!', '#f44336');
+        }
+
+        document.getElementById('points').textContent = points;
+        document.getElementById('errors').textContent = errors;
+
+        // Guardar el estado del juego después de cada respuesta
+        saveGameState();
+
+        setTimeout(() => {
+            currentQuestion++;
+            loadQuestion();
+        }, 1500);
+    }
+
+    // Mostrar feedback
+    function showFeedback(text, color) {
+        const feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        feedback.textContent = text;
+        feedback.style.background = color;
+        document.body.appendChild(feedback);
+
+        setTimeout(() => {
+            feedback.remove();
+        }, 1000);
+    }
+
+    // Actualizar barra de progreso
+    function updateProgress() {
+        const progress = (currentQuestion / questions.length) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+    }
+
+    // Finalizar juego
+    function endGame() {
+        document.getElementById('game-screen').classList.add('hidden');
+        document.getElementById('end-screen').style.display = 'block';
+        document.getElementById('final-score').textContent = points;
+        document.getElementById('final-correct').textContent = points / 10;
+        document.getElementById('final-errors').textContent = errors;
+        localStorage.removeItem('arduinoQuizState'); // Limpiar estado al finalizar el juego
+    }
+
+    // Reiniciar juego
+    function restartGame() {
+        localStorage.removeItem('arduinoQuizState'); // Borrar estado guardado
+        currentQuestion = 0;
+        points = 0;
+        errors = 0;
+        document.getElementById('points').textContent = '0';
+        document.getElementById('errors').textContent = '0';
+        document.getElementById('end-screen').style.display = 'none';
+        startGame();
+    }
+
+    // Inicializar componentes flotantes y cargar el estado del juego al cargar la página
+    window.onload = () => {
+        generateFloatingComponents();
+        loadGameState();
+    };
+    // Variables para el registro
+        let userInfo = {
+            name: '',
+            email: ''
+        };
+
+        // Validación en tiempo real de los campos
+        document.getElementById('name').addEventListener('input', validateForm);
+        document.getElementById('email').addEventListener('input', validateForm);
+
+        function validateForm() {
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const startBtn = document.getElementById('start-btn');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            
+            const nameValid = nameInput.value.trim().length >= 3;
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+
+            nameError.style.display = nameValid ? 'none' : 'block';
+            emailError.style.display = emailValid ? 'none' : 'block';
+
+            startBtn.disabled = !(nameValid && emailValid);
+
+            return nameValid && emailValid;
+        }
+
+        function validateAndStart() {
+            if (validateForm()) {
+                userInfo.name = document.getElementById('name').value.trim();
+                userInfo.email = document.getElementById('email').value.trim();
+                
+                document.getElementById('registration-form').style.display = 'none';
+                document.getElementById('registration-complete').style.display = 'block';
+                
+                // Guardar información del usuario
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+                
+                setTimeout(() => {
+                    startGame();
+                }, 500);
+            }
+        }
+
+        // Modificar la función endGame para enviar el correo
+        function endGame() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('end-screen').style.display = 'block';
+            document.getElementById('final-score').textContent = points;
+            document.getElementById('final-correct').textContent = points / 10;
+            document.getElementById('final-errors').textContent = errors;
+
+            // Recuperar información del usuario
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            
+            // Aquí deberías implementar la llamada a tu API para enviar el correo
+            sendCompletionEmail(userInfo, points);
+
+            localStorage.removeItem('arduinoQuizState');
+            localStorage.removeItem('userInfo');
+        }
+
+        function sendCompletionEmail(userInfo, score) {
+            // Esta función debe ser implementada en tu backend
+            // Aquí un ejemplo de cómo sería la estructura
+            const emailData = {
+                to: userInfo.email,
+                name: userInfo.name,
+                score: score,
+                correctAnswers: score / 10,
+                errors: errors
+            };
+
+            // Hacer la llamada a tu API
+            fetch('/api/send-completion-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(emailData)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Email sent successfully'))
+            .catch(error => console.error('Error sending email:', error));
+        }
+
+</script>
+</body>
+</html>

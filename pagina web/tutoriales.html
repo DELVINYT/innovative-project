@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics Hub - Tu Portal de Arduino y Robótica</title>
+    <style>
+        :root {
+            --arduino-teal: #00979C;
+            --arduino-blue: #0C3349;
+            --arduino-orange: #E47128;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--arduino-blue);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Estilo para el cielo estrellado */
+        .night-sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Estrellas de fondo fijas */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+        }
+
+        /* Estrellas fugaces */
+        .shooting-star {
+            position: absolute;
+            width: 5px; /* Aumentado el ancho */
+            height: 5px; /* Aumentado el alto */
+            background: var(--arduino-teal);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--arduino-teal);
+            opacity: 0;
+            animation: shoot linear forwards;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(120vw, 120vh); /* Aumentado el desplazamiento */
+                opacity: 0;
+            }
+        }
+
+        /* Satélites */
+        .satellite {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--arduino-teal);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 4px var(--arduino-teal),
+                0 0 8px var(--arduino-teal);
+            opacity: 0;
+            animation: satelliteMove linear infinite;
+        }
+
+        /* Estrellas fugaces que se comportan como satélites */
+        .big-shooting-star {
+            position: absolute;
+            width: 10px; /* Tamaño más grande */
+            height: 10px; /* Tamaño más grande */
+            background: var(--arduino-teal);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--arduino-teal);
+            opacity: 0;
+            animation: shoot linear forwards;
+        }
+
+        @keyframes satelliteMove {
+            0% {
+                transform: translate(-5%, -5%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(105%, 105%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(120vw, 120vh);
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .logo {
+            width: 100 %;
+            height: 100%;
+            background: var(--arduino-teal);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '⚡';
+            font-size: 5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .title {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            animation: slideIn 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--arduino-orange);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: var(--arduino-orange);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            width: 250px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--arduino-teal);
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .feature-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="night-sky" id="nightSky"></div>
+
+    <section class="hero">
+        <div class="logo-container">
+            <div class="logo"></div>
+        </div>
+
+        <h1 class="title">TechRoboLab</h1>
+        <p class="subtitle">Tu portal de aprendizaje en Arduino y Robótica</p>
+
+        <button class="cta-button" id="ctaButton">
+            Comenzar a Explorar
+        </button>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Tutoriales</h3>
+                <p>Aprende paso a paso con nuestros tutoriales interactivos</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Proyectos</h3>
+                <p>Explora proyectos reales y comparte los tuyos</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Comunidad</h3>
+                <p>Conéctate con otros entusiastas de la robótica</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Crear estrellas de fondo
+        function createStars() {
+            const sky = document.getElementById('nightSky');
+            const numStars = 100;
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.opacity = Math.random();
+                sky.appendChild(star);
+            }
+        }
+
+        // Crear efecto de satélites
+        function createSatellite() {
+            const sky = document.getElementById('nightSky');
+            const satellite = document.createElement('div');
+            satellite.className = 'satellite';
+            
+            // Posición inicial y ángulo aleatorio
+            const angle = Math.random() * 45 + 20 ; // Ángulo entre 20 y 65 grados
+            satellite.style.transform = `rotate(${angle}deg)`;
+            
+            // Velocidad aleatoria
+            const duration = Math.random() * 5 + 8; // Entre 8 y 13 segundos
+            satellite.style.animationDuration = `${duration}s`;
+            
+            // Posición inicial aleatoria
+            satellite.style.left = Math.random() * 100 + '%';
+            satellite.style.top = '0%';
+            
+            sky.appendChild(satellite);
+
+            // Eliminar el satélite después de la animación
+            setTimeout(() => {
+                satellite.remove();
+            }, duration * 1000);
+        }
+
+        // Crear efecto de estrellas fugaces
+        function createShootingStar() {
+            const sky = document.getElementById('nightSky');
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            
+            // Posición inicial aleatoria
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 50 + '%'; // Solo en la mitad superior
+
+            // Duración aleatoria
+            const duration = Math.random() * 1 + 0.5; // Entre 0.5 y 1.5 segundos
+            shootingStar.style.animationDuration = `${duration}s`;
+
+            sky.appendChild(shootingStar);
+
+            // Eliminar la estrella fugaz después de la animación
+            setTimeout(() => {
+                shootingStar.remove();
+            }, duration * 1000);
+        }
+
+        // Crear estrellas fugaces grandes que se comporten como satélites
+        function createBigShootingStar() {
+            const sky = document.getElementById('nightSky');
+            const bigShootingStar = document.createElement('div');
+            bigShootingStar.className = 'big-shooting-star';
+            
+            // Posición inicial aleatoria
+            bigShootingStar.style.left = Math.random() * 100 + '%';
+            bigShootingStar.style.top = Math.random() * 50 + '%'; // Solo en la mitad superior
+
+            // Duración aleatoria
+            const duration = Math.random() * 1 + 0.5; // Entre 0.5 y 1.5 segundos
+            bigShootingStar.style.animationDuration = `${duration}s`;
+
+            sky.appendChild(bigShootingStar);
+
+            // Eliminar la estrella fugaz después de la animación
+            setTimeout(() => {
+                bigShootingStar.remove();
+            }, duration * 1000);
+        }
+
+        // Inicializar estrellas
+        createStars();
+
+        // Crear satélites, estrellas fugaces y estrellas fugaces grandes periódicamente
+        setInterval(createSatellite, 2000);
+        setInterval(createShootingStar, 1000); // Cada segundo
+        setInterval(createBigShootingStar, 5000); // Cada 5 segundos
+
+        // Botón CTA
+        const ctaButton = document.getElementById('ctaButton');
+        ctaButton.addEventListener('click', () => {
+            alert('¡Bienvenido a RoboTech Hub!');
+        });
+    </script>
+</body>
+</html>

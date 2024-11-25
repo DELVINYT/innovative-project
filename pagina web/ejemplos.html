@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Robótica</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --arduino-teal: #00979D;
+            --arduino-blue: #0C4D98;
+            --modal-bg: #f5f5f5;
+            --share-modal-bg: #e8e8e8;
+        }
+
+        /* ... (Estilos anteriores permanecen igual hasta el share-modal) ... */
+
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--share-modal-bg);
+            padding: 30px;
+            border-radius: 8px;
+            z-index: 1100;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .share-modal h3 {
+            color: var(--arduino-blue);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .share-option {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .share-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .share-option i {
+            font-size: 1.5em;
+        }
+
+        .share-option.whatsapp {
+            color: #25D366;
+        }
+
+        .share-option.facebook {
+            color: #1877F2;
+        }
+
+        .share-option.instagram {
+            color: #E4405F;
+        }
+
+        .share-option.link {
+            color: #666;
+        }
+
+        .share-option span {
+            font-weight: 500;
+        }
+
+        .close-share-modal {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #666;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+        .close-share-modal:hover {
+            color: #333;
+        }
+
+        /* El resto de los estilos permanecen igual */
+        :root {
+            --arduino-teal: #00979D;
+            --arduino-blue: #0C4D98;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .product-title {
+            margin: 10px 0;
+            color: var(--arduino-blue);
+            font-size: 1.1em;
+        }
+
+        .product-price {
+            color: var(--arduino-teal);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .product-description {
+            font-size: 0.9em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-images {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail.active {
+            border-color: var(--arduino-teal);
+        }
+
+        .product-details {
+            margin-top: 20px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--arduino-teal);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--arduino-blue);
+            color: white;
+        }
+
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1100;
+        }
+
+        .share-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .share-option {
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--arduino-teal);
+        }
+
+        .tab-content {
+            padding: 20px 0;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ... (Código anterior igual hasta el Share Modal) ... -->
+    <div class="gallery" id="productGallery">
+        <!-- Products will be inserted here by JavaScript -->
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-images">
+                <img src="" alt="" class="main-image" id="modalMainImage">
+                <div class="thumbnail-container" id="thumbnailContainer">
+                    <!-- Thumbnails will be inserted here -->
+                </div>
+            </div>
+            <div class="product-details">
+                <h2 id="modalProductTitle"></h2>
+                <p class="product-price" id="modalProductPrice"></p>
+                <div class="quantity-controls">
+                    <button class="btn" onclick="decrementQuantity()">-</button>
+                    <input type="number" min="1" value="1" id="quantityInput" style="width: 60px; text-align: center;">
+                    <button class="btn" onclick="incrementQuantity()">+</button>
+                </div>
+                <button class="btn btn-primary" onclick="addToCart()">Agregar al carrito</button>
+                <button class="btn btn-secondary" onclick="showShareModal()">Compartir</button>
+            </div>
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('description')">Descripción</div>
+                <div class="tab" onclick="switchTab('comments')">Comentarios</div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-panel active" id="description">
+                    <!-- Description content -->
+                </div>
+                <div class="tab-panel" id="comments">
+                    <!-- Comments content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <h3>Compartir Producto</h3>
+        <div class="share-options">
+            <div class="share-option" onclick="shareProduct('whatsapp')">
+                WhatsApp
+            </div>
+            <div class="share-option" onclick="shareProduct('facebook')">
+                Facebook
+            </div>
+            <div class="share-option" onclick="shareProduct('instagram')">
+                Instagram
+            </div>
+            <div class="share-option" onclick="copyLink()">
+                Copiar Link
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal Actualizado -->
+    <div class="share-modal" id="shareModal">
+        <button class="close-share-modal" onclick="closeShareModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3>Compartir Producto</h3>
+        <div class="share-options">
+            <div class="share-option whatsapp" onclick="shareProduct('whatsapp')">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </div>
+            <div class="share-option facebook" onclick="shareProduct('facebook')">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+            </div>
+            <div class="share-option instagram" onclick="shareProduct('instagram')">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </div>
+            <div class="share-option link" onclick="copyLink()">
+                <i class="fas fa-link"></i>
+                <span>Copiar Link</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ... (Scripts anteriores permanecen igual) ...
+
+        function closeShareModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        // Actualizar la función showShareModal para mejor manejo
+        function showShareModal() {
+            const shareModal = document.getElementById('shareModal');
+            shareModal.style.display = 'block';
+        }
+
+        // Actualizar la función shareProduct para mejor feedback
+        function shareProduct(platform) {
+            const url = window.location.href;
+            const text = `¡Mira este producto: ${currentProduct.name}!`;
+            
+            switch(platform) {
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`);
+                    break;
+                case 'facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
+                    break;
+                case 'instagram':
+                    alert('Copia el link y compártelo en tu historia de Instagram');
+                    break;
+            }
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const linkOption = document.querySelector('.share-option.link');
+                const originalContent = linkOption.innerHTML;
+                
+                linkOption.innerHTML = `
+                    <i class="fas fa-check"></i>
+                    <span>¡Link Copiado!</span>
+                `;
+                
+                setTimeout(() => {
+                    linkOption.innerHTML = originalContent;
+                }, 2000);
+            });
+        }
+
+        // ... (Resto del script permanece igual) ...
+// Sample product data
+const products = [
+            {
+                id: 1,
+                name: "Arduino UNO R3",
+                price: 24.99,
+                description: "Placa de desarrollo Arduino UNO R3 con microcontrolador ATmega328P",
+                images: [
+                    "/api/placeholder/400/400",
+                    "/api/placeholder/400/400",
+                    "/api/placeholder/400/400"
+                ],
+                fullDescription: "El Arduino UNO R3 es una placa de desarrollo basada en el microcontrolador ATmega328P. Cuenta con 14 pines digitales de entrada/salida, 6 entradas analógicas, un cristal de cuarzo de 16 MHz, conexión USB, conector de alimentación y botón de reinicio.",
+                comments: [
+                    { user: "Usuario1", text: "Excelente producto para principiantes" },
+                    { user: "Usuario2", text: "Muy buena calidad y fácil de usar" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Sensor Ultrasónico HC-SR04",
+                price: 3.99,
+                description: "Sensor de distancia ultrasónico con rango de 2cm a 400cm",
+                images: [
+                    "/api/placeholder/400/400",
+                    "/api/placeholder/400/400",
+                    "/api/placeholder/400/400"
+                ],
+                fullDescription: "El sensor HC-SR04 utiliza ultrasonido para determinar la distancia a un objeto. Perfecto para proyectos de robótica y automatización.",
+                comments: [
+                    { user: "Usuario3", text: "Muy preciso para medir distancias" },
+                    { user: "Usuario4", text: "Fácil de implementar en proyectos" }
+                ]
+            }
+        ];
+
+        // Render products
+        function renderProducts() {
+            const gallery = document.getElementById('productGallery');
+            gallery.innerHTML = products.map(product => `
+                <div class="product-card" onclick="openModal(${product.id})">
+                    <img src="${product.images[0]}" alt="${product.name}" class="product-image">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-price">$${product.price}</p>
+                    <p class="product-description">${product.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // Modal functionality
+        const modal = document.getElementById('productModal');
+        const shareModal = document.getElementById('shareModal');
+        let currentProduct = null;
+
+        function openModal(productId) {
+            currentProduct = products.find(p => p.id === productId);
+            if (!currentProduct) return;
+
+            document.getElementById('modalMainImage').src = currentProduct.images[0];
+            document.getElementById('modalProductTitle').textContent = currentProduct.name;
+            document.getElementById('modalProductPrice').textContent = `$${currentProduct.price}`;
+            document.getElementById('description').innerHTML = currentProduct.fullDescription;
+            document.getElementById('comments').innerHTML = currentProduct.comments
+                .map(comment => `
+                    <div class="comment">
+                        <strong>${comment.user}</strong>: ${comment.text}
+                    </div>
+                `).join('');
+
+            // Render thumbnails
+            document.getElementById('thumbnailContainer').innerHTML = currentProduct.images
+                .map((img, index) => `
+                    <img src="${img}" alt="thumbnail" class="thumbnail ${index === 0 ? 'active' : ''}"
+                        onclick="changeMainImage(${index})">
+                `).join('');
+
+            modal.style.display = 'block';
+        }
+
+        // Close modal when clicking on X or outside
+        document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target === modal) modal.style.display = 'none';
+            if (event.target === shareModal) shareModal.style.display = 'none';
+        };
+
+        function changeMainImage(index) {
+            document.getElementById('modalMainImage').src = currentProduct.images[index];
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+
+        function incrementQuantity() {
+            const input = document.getElementById('quantityInput');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrementQuantity() {
+            const input = document.getElementById('quantityInput');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function addToCart() {
+            const quantity = document.getElementById('quantityInput').value;
+            alert(`Producto agregado al carrito: ${quantity} unidad(es) de ${currentProduct.name}`);
+        }
+
+        function showShareModal() {
+            shareModal.style.display = 'block';
+        }
+
+        function shareProduct(platform) {
+            const url = window.location.href;
+            const text = `¡Mira este producto: ${currentProduct.name}!`;
+            
+            switch(platform) {
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`);
+                    break;
+                case 'facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
+                    break;
+                case 'instagram':
+                    alert('Compartir en Instagram no está disponible directamente. Copia el link y compártelo manualmente.');
+                    break;
+            }
+            shareModal.style.display = 'none';
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copiado al portapapeles');
+                shareModal.style.display = 'none';
+            });
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent.toLowerCase().includes(tabName));
+            });
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === tabName);
+            });
+        }
+
+        // Initialize the gallery
+        renderProducts();
+    </script>
+</body>
+</html>

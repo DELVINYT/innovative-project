@@ -1,0 +1,603 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #E6F7F9;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header y Navegación */
+header {
+    background-color: #037A8B;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+
+.user-actions a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: #025E6C;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #FF5722;
+}
+
+.menu-icon {
+    display: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Contenido principal */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.text-content {
+    flex: 1;
+}
+
+h1 {
+    font-size: 64px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.orange-text {
+    color: #FF5722;
+}
+
+.blue-text {
+    color: #1A237E;
+}
+
+p {
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    font-size: 20px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.cta-button {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 18px 35px;
+    border-radius: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cta-button.secondary {
+    background-color: #037A8B;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Robot ilustración */
+.robot-illustration {
+    flex: 1;
+}
+
+.robot-card {
+    background-color: #037A8B;
+    border-radius: 20px;
+    padding: 50px;
+    transform: rotate(3deg);
+    transition: transform 0.3s;
+}
+
+.robot-inner {
+    background-color: #025E6C;
+    border-radius: 20px;
+    padding: 40px;
+    transform: rotate(-6deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.robot-head {
+    width: 180px;
+    height: 180px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.robot-eye {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 10px;
+    position: relative;
+}
+
+.robot-eye::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #1A237E;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.robot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.robot-grid-item {
+    background-color: #037A8B;
+    border-radius: 12px;
+    padding: 20px;
+    aspect-ratio: 1;
+    transition: background-color 0.3s;
+}
+
+.robot-grid-item:hover {
+    background-color: #FF5722;
+}
+
+/* Características */
+.features {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card h3 {
+    color: #1A237E;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+
+/*este es el apartado de la bienvenida*/
+:root {
+    --arduino-teal: #00979C;
+    --arduino-blue: #0C3349;
+    --arduino-orange: #E47128;
+    --gradient-primary: linear-gradient(135deg, var(--arduino-blue), var(--arduino-teal));
+    --gradient-secondary: linear-gradient(135deg, var(--arduino-orange), #f7b733);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Sección de robótica única */
+.robotics-section-1, .robotics-section-2, .robotics-section-3 {
+    position: relative;  /* Añadido para controlar la posición */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    min-height: 80vh;
+    background: #ffffff;
+    margin-bottom: 3rem;  /* Añadido para espacio entre secciones */
+}
+
+/* Fondo con gradiente */
+.robotics-section-1::before, .robotics-section-2::before, .robotics-section-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0.03;
+    transform: skewY(-6deg);
+    z-index: 0;
+}
+
+/* Contenedor del contenido */
+.robotics-section-container-1, .robotics-section-container-2, .robotics-section-container-3 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;  /* Ajustado para estar encima del pseudo-elemento */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.robotics-section-container-1.active, .robotics-section-container-2.active, .robotics-section-container-3.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Imagen */
+.robotics-section-image-1, .robotics-section-image-2, .robotics-section-image-3 {
+    flex: 1;
+    padding: 2rem;
+    flex-shrink: 0;  /* Evita que la imagen se reduzca */
+}
+
+.robotics-section-image-1 img, .robotics-section-image-2 img, .robotics-section-image-3 img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido textual */
+.robotics-section-content-1, .robotics-section-content-2, .robotics-section-content-3 {
+    flex: 1;
+    padding: 2rem;
+}
+
+/* Elementos de texto */
+.robotics-section-badge-1, .robotics-section-badge-2, .robotics-section-badge-3 {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.robotics-section-title-1, .robotics-section-title-2, .robotics-section-title-3 {
+    color: var(--arduino-blue);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.robotics-section-description-1, .robotics-section-description-2, .robotics-section-description-3 {
+    color: #546e7a;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+/* Botón de acción */
+.robotics-section-button-1, .robotics-section-button-2, .robotics-section-button-3 {
+    display: inline-block;
+    padding: 15px 40px;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.robotics-section-button-1:hover, .robotics-section-button-2:hover, .robotics-section-button-3:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 151, 156, 0.3);
+}
+
+/* Stack tecnológico */
+.robotics-tech-stack-1, .robotics-tech-stack-2, .robotics-tech-stack-3 {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.robotics-tech-item-1, .robotics-tech-item-2, .robotics-tech-item-3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #546e7a;
+    font-size: 0.9rem;
+}
+
+.robotics-tech-icon-1, .robotics-tech-icon-2, .robotics-tech-icon-3 {
+    width: 24px;
+    height: 24px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .robotics-section-1, .robotics-section-2, .robotics-section-3 {
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;  /* Asegura espacio entre secciones */
+    }
+    .robotics-section-title-1, .robotics-section-title-2, .robotics-section-title-3 {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .robotics-section-1, .robotics-section-2, .robotics-section-3 {
+        padding: 2rem 1.5rem;
+        margin-bottom: 3rem;  /* Añadido para espacio entre secciones */
+    }
+    .robotics-section-container-1, .robotics-section-container-2, .robotics-section-container-3 {
+        flex-direction: column;
+        text-align: center;
+    }
+    .robotics-tech-stack-1, .robotics-tech-stack-2, .robotics-tech-stack-3 {
+        justify-content: center;
+    }
+    .robotics-section-title-1, .robotics-section-title-2, .robotics-section-title-3 {
+        font-size: 2.3rem;
+    }
+}
+
+/* Footer */
+:root {
+    --soft-white: #F5F5F5; /* Blanco suave */
+    --footer-orange: #FF5722;
+  }
+  
+  body.custom-body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, white, var(--soft-white));
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer-unique {
+    background-color: var(--soft-white); /* Fondo ajustado al blanco suave */
+    color: black; /* Texto negro para buen contraste */
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .arduino-avatar {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 87, 34, 0.3); /* Naranja */
+  }
+  
+  .arduino-logo {
+    width: 100%;
+    height: 100%;
+    background: var(--footer-orange);
+    position: relative;
+    animation: pulse 2s infinite;
+  }
+  
+  .arduino-eye {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    animation: blink 4s infinite;
+  }
+  
+  .arduino-eye.left { top: 40px; left: 40px; }
+  .arduino-eye.right { top: 40px; right: 40px; }
+  
+  .arduino-mouth {
+    width: 60px;
+    height: 20px;
+    border: 3px solid white;
+    border-radius: 0 0 30px 30px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 0;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes blink {
+    0%, 96%, 98% { transform: scaleY(1); }
+    97% { transform: scaleY(0.2); }
+  }
+  
+  .footer-section {
+    flex: 1;
+    min-width: 250px;
+    transition: transform 0.3s;
+  }
+  
+  .footer-section:hover {
+    transform: translateY(-5px);
+  }
+  
+  .footer-title {
+    color: var(--footer-orange);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li {
+    margin: 0.5rem 0;
+  }
+  
+  .footer-links a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-links a:hover {
+    color: var(--footer-orange);
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--footer-orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    color: black;
+  }
+  
+  .social-icon:hover {
+    background: var(--footer-orange);
+    transform: rotate(360deg);
+  }
+  
+  .subscribe-form {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+  
+  .subscribe-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .subscribe-button {
+    background: var(--footer-orange);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+  
+  .subscribe-button:hover {
+    background: var(--footer-orange);
+    transform: translateY(-2px);
+  }
+  
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: black;
+  }
+  

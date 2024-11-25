@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #00979C;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-container {
+      width: 90%;
+      max-width: 1200px;
+      height: 600px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 151, 156, 0.3);
+      background: #1B252D;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(0.8) translateX(100%);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      background: linear-gradient(45deg, #1B252D, #2C3E50);
+      padding: 2rem;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1) translateX(0);
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+    }
+
+    .text-content {
+      flex: 1;
+      padding: 2rem;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    .image-content {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tech-title {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(45deg, #00979C, #008184);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowText 2s infinite alternate;
+    }
+
+    .tech-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #00979C;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+      animation-delay: 0.3s;
+    }
+
+    .tech-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #E6E6E6;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+      animation-delay: 0.6s;
+    }
+
+    .product-image {
+      width: 400px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 151, 156, 0.3);
+      opacity: 0;
+      transform: translateX(50px);
+      animation: fadeInRight 0.8s forwards;
+      animation-delay: 0.3s;
+    }
+
+    .circuit-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(90deg, transparent 50%, rgba(0, 151, 156, 0.1) 50%),
+        linear-gradient(0deg, transparent 50%, rgba(0, 151, 156, 0.1) 50%);
+      background-size: 20px 20px;
+      animation: circuitMove 20s linear infinite;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 151, 156, 0.2);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background: rgba(0, 151, 156, 0.4);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev {
+      left: 20px;
+    }
+
+    .next {
+      right: 20px;
+    }
+
+    .nav-button::before {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      top: 50%;
+      left: 50%;
+    }
+
+    .prev::before {
+      transform: translate(-25%, -50%) rotate(45deg);
+    }
+
+    .next::before {
+      transform: translate(-75%, -50%) rotate(-135deg);
+    }
+
+    .dots-container {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: #00979C;
+      box-shadow: 0 0 10px #00979C;
+    }
+
+    .tech-specs {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(0, 151, 156, 0.1);
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+      animation-delay: 0.9s;
+    }
+
+    .tech-specs li {
+      list-style: none;
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .tech-specs li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #00979C;
+    }
+
+    .price-tag {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 151, 156, 0.2);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      transform: rotate(5deg);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 10px rgba(0, 151, 156, 0.5);
+      }
+      100% {
+        text-shadow: 0 0 20px rgba(0, 151, 156, 0.8);
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes circuitMove {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 100px 100px;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: rotate(5deg) translateY(0);
+      }
+      50% {
+        transform: rotate(5deg) translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <div class="circuit-overlay"></div>
+    
+    <div class="slide active">
+      <div class="slide-content">
+        <div class="text-content">
+          <h1 class="tech-title">Arduino Mega 2560</h1>
+          <h2 class="tech-subtitle">Ultimate Development Board</h2>
+          <p class="tech-description">
+            Experience the power of advanced microcontroller development with our flagship Arduino board.
+            Perfect for complex projects and professional applications.
+          </p>
+          <ul class="tech-specs">
+            <li>54 digital I/O pins</li>
+            <li>16 MHz ATmega2560</li>
+            <li>256KB Flash Memory</li>
+            <li>4KB EEPROM</li>
+          </ul>
+          <div class="price-tag">
+            <span style="color: #fff; font-size: 2rem;">$35.99</span>
+            <span style="color: #00979C; text-decoration: line-through;">$49.99</span>
+          </div>
+        </div>
+        <div class="image-content">
+          <img src="/api/placeholder/400/400" alt="Arduino Mega" class="product-image">
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-content">
+        <div class="text-content">
+          <h1 class="tech-title">Raspberry Pi 4</h1>
+          <h2 class="tech-subtitle">Next-Gen Computing</h2>
+          <p class="tech-description">
+            Transform your projects with the most powerful Raspberry Pi ever.
+            Desktop-class performance in a compact form factor.
+          </p>
+          <ul class="tech-specs">
+            <li>Quad-core ARM CPU</li>
+            <li>8GB LPDDR4 RAM</li>
+            <li>True Gigabit Ethernet</li>
+            <li>4K Dual Display Support</li>
+          </ul>
+          <div class="price-tag">
+            <span style="color: #fff; font-size: 2rem;">$75.99</span>
+            <span style="color: #00979C; text-decoration: line-through;">$89.99</span>
+          </div>
+        </div>
+        <div class="image-content">
+          <img src="/api/placeholder/400/400" alt="Raspberry Pi" class="product-image">
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="slide-content">
+        <div class="text-content">
+          <h1 class="tech-title">ESP32 DevKit</h1>
+          <h2 class="tech-subtitle">IoT Excellence</h2>
+          <p class="tech-description">
+            Connect your world with the most versatile IoT development platform.
+            Built-in WiFi and Bluetooth for endless possibilities.
+          </p>
+          <ul class="tech-specs">
+            <li>Dual-Core 240MHz CPU</li>
+            <li>WiFi + Bluetooth LE</li>
+            <li>520KB SRAM</li>
+            <li>Ultra-Low Power Mode</li>
+          </ul>
+          <div class="price-tag">
+            <span style="color: #fff; font-size: 2rem;">$12.99</span>
+            <span style="color: #00979C; text-decoration: line-through;">$19.99</span>
+          </div>
+        </div>
+        <div class="image-content">
+          <img src="/api/placeholder/400/400" alt="ESP32" class="product-image">
+        </div>
+      </div>
+    </div>
+
+    <button class="nav-button prev"></button>
+    <button class="nav-button next"></button>
+
+    <div class="dots-container">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(n) {
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+      });
+
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function startSlideShow() {
+      slideInterval = setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 5000);
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startSlideShow();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+      resetInterval();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+      resetInterval();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        resetInterval();
+      });
+    });
+
+    // Start the slideshow
+    startSlideShow();
+  </script>
+</body>
+</html>

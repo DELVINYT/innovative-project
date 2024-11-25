@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Interactiva Arduino</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        .gallery-container {
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 151, 156, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .item-overlay {
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            background: linear-gradient(135deg, #00979C, #2C2D72);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .modal-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .modal-images img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-info {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            text-shadow: 0 0 10px rgba(0, 151, 156, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(0, 151, 156, 0.5); }
+            to { text-shadow: 0 0 20px rgba(0, 151, 156, 0.8), 0 0 30px rgba(0, 151, 156, 0.6); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h2 class="section-title">Galería de Proyectos</h2>
+        <div class="gallery-grid">
+            <!-- Proyecto 1 -->
+            <div class="gallery-item" data-project="robot">
+                <img src="/api/placeholder/300/250" alt="Robot Arduino">
+                <div class="item-overlay">
+                    <h3>Robot Seguidor de Línea</h3>
+                    <p>Robot autónomo con Arduino</p>
+                </div>
+            </div>
+            <!-- Proyecto 2 -->
+            <div class="gallery-item" data-project="home">
+                <img src="/api/placeholder/300/250" alt="Casa Inteligente">
+                <div class="item-overlay">
+                    <h3>Domótica Arduino</h3>
+                    <p>Sistema de automatización del hogar</p>
+                </div>
+            </div>
+            <!-- Proyecto 3 -->
+            <div class="gallery-item" data-project="greenhouse">
+                <img src="/api/placeholder/300/250" alt="Invernadero">
+                <div class="item-overlay">
+                    <h3>Invernadero Automatizado</h3>
+                    <p>Control de clima y riego</p>
+                </div>
+            </div>
+            <!-- Proyecto 4 -->
+            <div class="gallery-item" data-project="security">
+                <img src="/api/placeholder/300/250" alt="Seguridad">
+                <div class="item-overlay">
+                    <h3>Sistema de Seguridad</h3>
+                    <p>Monitoreo y control de acceso</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div class="modal-grid">
+                <div class="modal-images">
+                    <img src="/api/placeholder/280/200" alt="Detalle 1">
+                    <img src="/api/placeholder/280/200" alt="Detalle 2">
+                    <img src="/api/placeholder/280/200" alt="Detalle 3">
+                    <img src="/api/placeholder/280/200" alt="Detalle 4">
+                </div>
+                <div class="modal-info">
+                    <h3>Descripción</h3>
+                    <p id="modal-description"></p>
+                    <h3>Características Principales</h3>
+                    <ul id="modal-features"></ul>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="projectChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectsData = {
+            robot: {
+                title: "Robot Seguidor de Línea",
+                description: "Robot autónomo basado en Arduino capaz de seguir líneas y evitar obstáculos.",
+                features: [
+                    "Sensores IR para detección de línea",
+                    "Sensor ultrasónico para obstáculos",
+                    "Control de motores DC",
+                    "Algoritmo PID para precisión"
+                ],
+                chartData: {
+                    labels: ["Educación", "Industria", "Investigación", "Entretenimiento"],
+                    values: [85, 65, 45, 70]
+                }
+            },
+            home: {
+                title: "Sistema Domótico Arduino",
+                description: "Sistema integral de automatización del hogar con control por aplicación móvil.",
+                features: [
+                    "Control de iluminación",
+                    "Gestión de temperatura",
+                    "Sistema de seguridad",
+                    "Monitoreo energético"
+                ],
+                chartData: {
+                    labels: ["Hogares", "Oficinas", "Hoteles", "Comercios"],
+                    values: [90, 75, 60, 50]
+                }
+            },
+            greenhouse: {
+                title: "Invernadero Automatizado",
+                description: "Sistema de control climático y riego para cultivos optimizados.",
+                features: [
+                    "Control de temperatura y humedad",
+                    "Sistema de riego automático",
+                    "Monitoreo de luz",
+                    "Registro de datos"
+                ],
+                chartData: {
+                    labels: ["Agricultura", "Investigación", "Hogar", "Producción"],
+                    values: [95, 70, 40, 80]
+                }
+            },
+            security: {
+                title: "Sistema de Seguridad",
+                description: "Sistema de seguridad integrado con múltiples sensores y alertas.",
+                features: [
+                    "Detección de movimiento",
+                    "Control de acceso",
+                    "Alertas en tiempo real",
+                    "Cámara de vigilancia"
+                ],
+                chartData: {
+                    labels: ["Residencial", "Comercial", "Industrial", "Institucional"],
+                    values: [80, 85, 90, 75]
+                }
+            }
+        };
+
+        let currentChart = null;
+
+        function createChart(data, projectType) {
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            const ctx = document.getElementById('projectChart').getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Impacto por Sector (%)',
+                        data: data.values,
+                        backgroundColor: 'rgba(0, 151, 156, 0.2)',
+                        borderColor: 'rgba(0, 151, 156, 1)',
+                        pointBackgroundColor: 'rgba(0, 151, 156, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(0, 151, 156, 1)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            pointLabels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.style.animationDelay = `${Math.random() * 0.5}s`;
+            
+            item.addEventListener('click', () => {
+                const projectType = item.dataset.project;
+                const projectData = projectsData[projectType];
+                
+                document.getElementById('modal-title').textContent = projectData.title;
+                document.getElementById('modal-description').textContent = projectData.description;
+                
+                const featuresList = document.getElementById('modal-features');
+                featuresList.innerHTML = '';
+                projectData.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+
+                createChart(projectData.chartData, projectType);
+                
+                const modal = document.querySelector('.modal');
+                modal.classList.add('active');
+            });
+        });
+
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.querySelector('.modal').classList.remove('active');
+        });
+
+        // Cierra el modal al hacer clic fuera del contenido
+        document.querySelector('.modal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
